@@ -1,9 +1,9 @@
 app:
-  title: Scaffolded Backstage App
+  title: Merck Portal
   baseUrl: http://localhost:3000
 
 organization:
-  name: My Company
+  name: Merck
 
 backend:
   # Used for enabling authentication, secret is shared by all backend plugins
@@ -28,8 +28,12 @@ backend:
   # This is for local development only, it is not recommended to use this in production
   # The production database configuration is stored in app-config.production.yaml
   database:
-    client: better-sqlite3
-    connection: ':memory:'
+    client: pg
+    connection:
+      host: 127.0.0.1
+      port: 5432
+      user: postgres
+      password: postgres
   cache:
     store: memory
   # workingDirectory: /tmp # Use this to configure a working directory for the scaffolder, defaults to the OS temp-dir

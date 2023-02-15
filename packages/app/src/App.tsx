@@ -33,9 +33,27 @@ import { AppRouter, FlatRoutes } from '@backstage/core-app-api';
 import { CatalogGraphPage } from '@backstage/plugin-catalog-graph';
 import { RequirePermission } from '@backstage/plugin-permission-react';
 import { catalogEntityCreatePermission } from '@backstage/plugin-catalog-common/alpha';
+import { CssBaseline, ThemeProvider } from '@material-ui/core';
+import { myTheme } from './themes/merck';
+import { ExampleIcon } from './assets/icons/customIcons';
 
 const app = createApp({
   apis,
+  themes: [
+    {
+      id: 'merck',
+      title: 'Merck',
+      variant: 'light',
+      Provider: ({ children }) => (
+        <ThemeProvider theme={myTheme}>
+          <CssBaseline>{children}</CssBaseline>
+        </ThemeProvider>
+      ),
+    },
+  ],
+  icons: {
+      github: ExampleIcon
+  },
   bindRoutes({ bind }) {
     bind(catalogPlugin.externalRoutes, {
       createComponent: scaffolderPlugin.routes.root,

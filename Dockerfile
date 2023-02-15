@@ -18,7 +18,7 @@ FROM node:16-bullseye-slim AS build
 RUN --mount=type=cache,target=/var/cache/apt,sharing=locked \
     --mount=type=cache,target=/var/lib/apt,sharing=locked \
     apt-get update && \
-    apt-get install -y --no-install-recommends libsqlite3-dev python3 build-essential && \
+    apt-get install -y --no-install-recommends libsqlite3-dev python3 build-essential python3-pip && \
     yarn config set python /usr/bin/python3
 
 USER node
@@ -33,6 +33,9 @@ RUN --mount=type=cache,target=/home/node/.cache/yarn,sharing=locked,uid=1000,gid
 
 COPY --chown=node:node . .
 
+# Install mkdocs-techdocs-core
+RUN pip3 install mkdocs-techdocs-core==1.0.1
+# Bump versions to latest
 RUN yarn backstage-cli versions:bump
 RUN yarn install
 
