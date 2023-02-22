@@ -124,6 +124,11 @@ const createCustomThemeOverrides = (
         },
       },
     },
+    BackstageSidebarItem: {
+        root: {
+            background: "#FFFFFF"
+        }
+    },
     CatalogReactUserListPicker: {
       title: {
         textTransform: 'none',

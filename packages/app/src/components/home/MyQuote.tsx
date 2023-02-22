@@ -3,11 +3,14 @@
 import React, { useEffect, useState, PropsWithChildren } from 'react';
 import Grid from '@material-ui/core/Grid';
 import { InfoCard } from '@backstage/core-components'; // replace with the actual path to the InfoCard component
-import { Default as InfoCardDefault, Props as InfoCardProps } from '@backstage/core-components'; // replace with the actual path to the InfoCard.stories file
-import { MemoryRouter } from 'react-router-dom';
+
+interface Quote {
+    author: string;
+    content: string;
+}
 
 export const MyComponent: React.FC = () => {
-  const [quote, setQuote] = useState('');
+  const [quote, setQuote] = useState<Quote>({ author: '', content: ''});
 
   useEffect(() => {
     const getQuote = async () => {
@@ -17,10 +20,6 @@ export const MyComponent: React.FC = () => {
     };
     getQuote();
 }, []);
-
-  const args: InfoCardProps = {
-    
-  };
 
   const Wrapper = ({ children }: PropsWithChildren<{}>) => (
     <Grid container spacing={4}>

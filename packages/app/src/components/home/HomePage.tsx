@@ -4,7 +4,6 @@ import {
  HomePageToolkit,
  HomePageCompanyLogo,
  HomePageStarredEntities,
- TemplateBackstageLogo,
  TemplateBackstageLogoIcon
 }
  from '@backstage/plugin-home';
@@ -146,7 +145,7 @@ const useLogoStyles = makeStyles(theme => ({
 
 export const HomePage = () => {
   const classes = useStyles();
-  const { svg, path, container } = useLogoStyles();
+  const { container } = useLogoStyles();
 
   return (
     <SearchContextProvider>
@@ -155,7 +154,7 @@ export const HomePage = () => {
           <Grid container justifyContent="center" spacing={6}>
             <HomePageCompanyLogo
               className={container}
-              logo={<LogoIcon classes={{ svg, path }} />}
+              logo={<LogoIcon />}
             />
             <Grid container item xs={12} alignItems="center" direction="row">
               <TwentyFourHourClocks
@@ -192,7 +191,7 @@ export const HomePage = () => {
               <Grid item xs={12} md={6} >
                 <InfoCard title="Unread Jenkins Errors">
                   {/* placeholder for content */}
-                  < ExampleLogViewer style= {{ height: 900 }}/>
+                  < ExampleLogViewer/>
                   <div style={{ height: 870 }} />
                 </InfoCard>
               </Grid>

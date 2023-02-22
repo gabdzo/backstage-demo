@@ -82,7 +82,6 @@ const cicdContent = (
         action={
           <Button
             variant="contained"
-            color='#FFFFFF'
             href="https://backstage.io/docs/features/software-catalog/well-known-annotations"
           >
             Read more

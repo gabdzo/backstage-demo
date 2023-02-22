@@ -1,7 +1,5 @@
 import React from 'react';
 import { makeStyles } from '@material-ui/core';
-import MyCustomLogoFull from '../../logo/site-logo.svg';
-
 
 const useStyles = makeStyles({
   svg: {

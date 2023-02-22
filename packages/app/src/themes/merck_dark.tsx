@@ -1,6 +1,6 @@
 import { BackstageOverrides } from '@backstage/core-components';
 import { BackstageOverrides as CatalogReactOverrides } from '@backstage/plugin-catalog-react';
-import { BackstageTheme, createTheme, lightTheme, darkTheme } from '@backstage/theme';
+import { BackstageTheme, createTheme, darkTheme } from '@backstage/theme';
 
 import { AutocompleteClassKey } from '@material-ui/lab/Autocomplete';
 import { AlertClassKey } from '@material-ui/lab/Alert';
