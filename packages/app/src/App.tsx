@@ -35,14 +35,29 @@ import { RequirePermission } from '@backstage/plugin-permission-react';
 import { catalogEntityCreatePermission } from '@backstage/plugin-catalog-common/alpha';
 import { CssBaseline, ThemeProvider } from '@material-ui/core';
 import { myTheme } from './themes/merck';
+import { darkMerckTheme } from './themes/merck_dark';
 import { ExampleIcon } from './assets/icons/customIcons';
+
+
+import { HomepageCompositionRoot } from '@backstage/plugin-home';
+import { HomePage } from './components/home/HomePage';
 
 const app = createApp({
   apis,
   themes: [
     {
+      id: 'merck_dark',
+      title: 'Merck Dark',
+      variant: 'dark',
+      Provider: ({ children }) => (
+        <ThemeProvider theme={darkMerckTheme}>
+          <CssBaseline>{children}</CssBaseline>
+        </ThemeProvider>
+      ),
+    },
+    {
       id: 'merck',
-      title: 'Merck',
+      title: 'Merck Light',
       variant: 'light',
       Provider: ({ children }) => (
         <ThemeProvider theme={myTheme}>
@@ -73,7 +88,9 @@ const app = createApp({
 
 const routes = (
   <FlatRoutes>
-    <Route path="/" element={<Navigate to="catalog" />} />
+    <Route path="/" element={<HomepageCompositionRoot />}>
+      <HomePage />
+    </Route>
     <Route path="/catalog" element={<CatalogIndexPage />} />
     <Route
       path="/catalog/:namespace/:kind/:name"

@@ -17,6 +17,6 @@ const useStyles = makeStyles({
 
 const LogoFull = () => {
   const classes = useStyles();
-  return <img src={MyCustomLogoFull} className={classes.svg} />;
+  return <img src='https://www.pngfind.com/pngs/m/485-4850513_merck-logo-merck-logo-white-png-transparent-png.png' className={classes.svg} />;
 };
 export default LogoFull;

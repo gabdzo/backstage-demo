@@ -37,6 +37,8 @@ import ResourceIcon from '@material-ui/icons/Work';
 import SystemIcon from '@material-ui/icons/Category';
 import UserIcon from '@material-ui/icons/Person';
 
+import CategoryIcon from '@material-ui/icons/Category';
+
 const useSidebarLogoStyles = makeStyles({
   root: {
     width: sidebarConfig.drawerWidthClosed,
@@ -75,7 +77,8 @@ export const Root = ({ children }: PropsWithChildren<{}>) => (
       <SidebarDivider />
       <SidebarGroup label="Menu" icon={<MenuIcon />}>
         {/* Global nav, not org-specific */}
-        <SidebarItem icon={HomeIcon} to="catalog" text="Home">
+        <SidebarItem icon={HomeIcon} to="/" text="Home"/>
+        <SidebarItem icon={CategoryIcon} to="catalog" text="Catalog">
   <SidebarSubmenu title="Catalog">
     <SidebarSubmenuItem
       title="Domains"
