@@ -14,8 +14,10 @@ metadata:
   name: example-website
   annotations:
     backstage.io/techdocs-ref: dir:.
+    company.com/security-tier: '1'
+    created: '2023-05-03' 
 spec:
-  type: website
+  type: website 
   lifecycle: experimental
   owner: guests
   system: examples

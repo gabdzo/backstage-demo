@@ -108,7 +108,7 @@ const createCustomThemeOverrides = (
     BackstageOpenedDropdown: {
       icon: {
         '& path': {
-          fill: '#FFFFFF',
+          fill: '#',
         },
       },
     },
@@ -123,11 +123,6 @@ const createCustomThemeOverrides = (
           textTransform: 'none !important',
         },
       },
-    },
-    BackstageSidebarItem: {
-        root: {
-            background: "#FFFFFF"
-        }
     },
     CatalogReactUserListPicker: {
       title: {

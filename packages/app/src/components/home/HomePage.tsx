@@ -7,116 +7,33 @@ import {
  TemplateBackstageLogoIcon
 }
  from '@backstage/plugin-home';
-import { wrapInTestApp, TestApiProvider } from '@backstage/test-utils';
 import { Content, Page, InfoCard } from '@backstage/core-components';
 import {
- starredEntitiesApiRef,
- MockStarredEntitiesApi,
- entityRouteRef,
- catalogApiRef,
-}
- from '@backstage/plugin-catalog-react';
-import { configApiRef } from '@backstage/core-plugin-api';
-import { ConfigReader } from '@backstage/config';
-import {
  HomePageSearchBar,
- searchPlugin,
 }
  from '@backstage/plugin-search';
-import { searchApiRef, SearchContextProvider } from '@backstage/plugin-search-react';
+import { SearchContextProvider } from '@backstage/plugin-search-react';
 import { Grid, makeStyles } from '@material-ui/core';
-import React, { ComponentType } from 'react';
+import React from 'react';
+
+import {
+  CatalogFilterLayout,
+  EntityListProvider,
+  EntityTagPicker,
+  EntityTypePicker,
+  EntityKindPicker,
+} from '@backstage/plugin-catalog-react';
+
+import { CatalogTable, DefaultCatalogPageProps } from '@backstage/plugin-catalog';
 
 import { ExampleLogViewer } from '../custom/log';
 import { TwentyFourHourClocks } from '../custom/clock';
 import { NotDenseTable } from '../custom/test';
 import { Default as Trends} from '../custom/trends';
 import LogoIcon from '../Root/LogoIcon';
-
-// MyStorybookComponent.tsx
-
 import { MyComponent } from './MyQuote';
-
-
-const entities = [
- {
-   apiVersion: '1',
-   kind: 'Component',
-   metadata: {
-     name: 'mock-starred-entity',
-     title: 'Mock Starred Entity!',
-   },
- },
- {
-   apiVersion: '1',
-   kind: 'Component',
-   metadata: {
-     name: 'mock-starred-entity-2',
-     title: 'Mock Starred Entity 2!',
-   },
- },
- {
-   apiVersion: '1',
-   kind: 'Component',
-   metadata: {
-     name: 'mock-starred-entity-3',
-     title: 'Mock Starred Entity 3!',
-   },
- },
- {
-   apiVersion: '1',
-   kind: 'Component',
-   metadata: {
-     name: 'mock-starred-entity-4',
-     title: 'Mock Starred Entity 4!',
-   },
- },
-];
-
-const mockCatalogApi = {
- getEntities: async () => ({ items: entities }),
-};
-
-const starredEntitiesApi = new MockStarredEntitiesApi();
-starredEntitiesApi.toggleStarred('component:default/example-starred-entity');
-starredEntitiesApi.toggleStarred('component:default/example-starred-entity-2');
-starredEntitiesApi.toggleStarred('component:default/example-starred-entity-3');
-starredEntitiesApi.toggleStarred('component:default/example-starred-entity-4');
-
-
-export default {
- title: 'Plugins/Home/Templates',
- decorators: [
-   (Story: ComponentType<{}>) =>
-     wrapInTestApp(
-       <>
-         <TestApiProvider
-           apis={[
-             [catalogApiRef, mockCatalogApi],
-             [starredEntitiesApiRef, starredEntitiesApi],
-             [searchApiRef, { query: () => Promise.resolve({ results: [] }) }],
-             [
-                configApiRef,
-                new ConfigReader({
-                  stackoverflow: {
-                    baseUrl: 'https://api.stackexchange.com/2.2',
-                  },
-                }),
-              ],
-            ]}
-          >
-            <Story />
-          </TestApiProvider>
-        </>,
-        {
-          mountedRoutes: {
-            '/hello-company': searchPlugin.routes.root,
-            '/catalog/:namespace/:kind/:name': entityRouteRef,
-          },
-        },
-      ),
-  ],
-};
+import { Trainings } from './Trainings';
+import { EntitySecurityTierPicker } from './CustomFilter';
 
 const useStyles = makeStyles(theme => ({
   searchBar: {
@@ -143,9 +60,15 @@ const useLogoStyles = makeStyles(theme => ({
   },
 }));
 
-export const HomePage = () => {
+export const HomePage = (props: DefaultCatalogPageProps) => {
   const classes = useStyles();
   const { container } = useLogoStyles();
+
+  const {
+    columns,
+    actions,
+  } = props;
+
 
   return (
     <SearchContextProvider>
@@ -154,20 +77,40 @@ export const HomePage = () => {
           <Grid container justifyContent="center" spacing={6}>
             <HomePageCompanyLogo
               className={container}
-              logo={<LogoIcon />}
+              logo={<LogoIcon/>}
             />
             <Grid container item xs={12} alignItems="center" direction="row">
               <TwentyFourHourClocks
               />
             </Grid>
             <Grid container item xs={12} alignItems="center" direction="row">
+                <MyComponent/>
+            </Grid>
+            <Grid container item xs={12} alignItems="center" direction="row">
+            <InfoCard title="New components">
+            <EntityListProvider>
+                <CatalogFilterLayout>
+                    <CatalogFilterLayout.Filters>
+                    <EntityKindPicker initialFilter="component" hidden />
+                    <EntityTypePicker />
+                    <EntitySecurityTierPicker />
+                    <EntityTagPicker />
+                </CatalogFilterLayout.Filters>
+                <CatalogFilterLayout.Content>
+                    <CatalogTable columns={columns} actions={actions} />
+                </CatalogFilterLayout.Content>
+                </CatalogFilterLayout>
+            </EntityListProvider>
+            </InfoCard>
+            </Grid>
+            <Grid container item xs={12} alignItems="center" direction="row">
+                <Trainings/>
+            </Grid>
+            <Grid container item xs={12} alignItems="center" direction="row">
               <HomePageSearchBar
                 classes={{ root: classes.searchBar }}
                 placeholder="Search"
               />
-            </Grid>
-            <Grid container item xs={12} alignItems="center" direction="row">
-            <MyComponent/> 
             </Grid>
             <Grid container item xs={12}>
               <Grid item xs={12} md={6}>
@@ -191,7 +134,7 @@ export const HomePage = () => {
               <Grid item xs={12} md={6} >
                 <InfoCard title="Unread Jenkins Errors">
                   {/* placeholder for content */}
-                  < ExampleLogViewer/>
+                  < ExampleLogViewer/> 
                   <div style={{ height: 870 }} />
                 </InfoCard>
               </Grid>

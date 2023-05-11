@@ -1,13 +1,6 @@
 
-import React, { ComponentType } from 'react';
-import { wrapInTestApp } from '@backstage/test-utils';
+import React from 'react';
 import { LogViewer } from '@backstage/core-components';
-
-export default {
-  title: 'Data Display/LogViewer',
-  component: LogViewer,
-  decorators: [(Story: ComponentType<{}>) => wrapInTestApp(<Story />)],
-};
 
 const exampleLog = `Starting up task with 3 steps
 Beginning step Fetch Skeleton + Template
