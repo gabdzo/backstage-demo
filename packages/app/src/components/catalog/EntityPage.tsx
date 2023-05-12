@@ -57,6 +57,11 @@ import { TechDocsAddons } from '@backstage/plugin-techdocs-react';
 import { ReportIssue } from '@backstage/plugin-techdocs-module-addons-contrib';
 
 import { EntityKubernetesContent } from '@backstage/plugin-kubernetes';
+import {
+  EntityJenkinsContent,
+  EntityLatestJenkinsRunCard,
+  isJenkinsAvailable,
+} from '@backstage/plugin-jenkins';
 
 const techdocsContent = (
   <EntityTechdocsContent>
@@ -73,7 +78,9 @@ const cicdContent = (
     <EntitySwitch.Case if={isGithubActionsAvailable}>
       <EntityGithubActionsContent />
     </EntitySwitch.Case>
-
+    <EntitySwitch.Case if={isJenkinsAvailable}>
+          <EntityJenkinsContent />
+    </EntitySwitch.Case>
     <EntitySwitch.Case>
       <EmptyState
         title="No CI/CD available for this entity"
@@ -122,6 +129,12 @@ const overviewContent = (
       <EntityCatalogGraphCard variant="gridItem" height={400} />
     </Grid>
 
+          <Grid item sm={6}>
+            <EntityLatestJenkinsRunCard
+              branch="main,master"
+              variant="gridItem"
+            />
+          </Grid>
     <Grid item md={4} xs={12}>
       <EntityLinksCard />
     </Grid>

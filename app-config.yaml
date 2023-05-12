@@ -97,6 +97,11 @@ catalog:
       rules:
         - allow: [User, Group]
 
+jenkins:
+    baseUrl: http://localhost:8080
+    username: gabdzo
+    apiKey: 114a0b42ad9ffc65c44612dafbd4470780
+          
 kubernetes:
   serviceLocatorMethod:
     type: 'multiTenant'
