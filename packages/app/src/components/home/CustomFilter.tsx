@@ -1,9 +1,11 @@
-import React from 'react';
-import { Checkbox, FormGroup, Typography, FormControl, FormControlLabel } from '@material-ui/core';
+import React, { useEffect } from 'react';
 import { useEntityList } from '@backstage/plugin-catalog-react';
 
 import { EntitySecurityTierFilter } from './CustomFilterClass'; 
 import { CustomFilters } from './CustomFilter2';
+
+// If somebody understands TypeScript better then I, feel free to remove 
+// unnecessary code and make it work properly. This is just temporary solution.
 
 export const EntitySecurityTierPicker = () => {
   // The securityTiers key is recognized due to the CustomFilter generic
@@ -24,24 +26,11 @@ export const EntitySecurityTierPicker = () => {
     });
   }
 
+  useEffect(() => {
+      onChange('7');
+  }, []);
+
+
   const tierOptions = ['1', '2', '3'];
-  return (
-    <FormControl component="fieldset">
-      <Typography variant="button">Security Tier</Typography>
-      <FormGroup>
-        {tierOptions.map(tier => (
-          <FormControlLabel
-            key={tier}
-            control={
-              <Checkbox
-                checked={securityTiers?.values.includes(tier)}
-                onChange={() => onChange(tier)}
-              />
-            }
-            label={`Tier ${tier}`}
-          />
-        ))}
-      </FormGroup>
-    </FormControl>
-  );
+  return null
 };

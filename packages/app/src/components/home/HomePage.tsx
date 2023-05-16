@@ -26,13 +26,9 @@ import {
 
 import { CatalogTable, DefaultCatalogPageProps } from '@backstage/plugin-catalog';
 
-import { ExampleLogViewer } from '../custom/log';
 import { TwentyFourHourClocks } from '../custom/clock';
-import { NotDenseTable } from '../custom/test';
-import { Default as Trends} from '../custom/trends';
 import LogoIcon from '../Root/LogoIcon';
 import { MyComponent } from './MyQuote';
-import { Trainings } from './Trainings';
 import { EntitySecurityTierPicker } from './CustomFilter';
 
 const useStyles = makeStyles(theme => ({
@@ -84,16 +80,27 @@ export const HomePage = (props: DefaultCatalogPageProps) => {
               />
             </Grid>
             <Grid container item xs={12} alignItems="center" direction="row">
+              <HomePageSearchBar
+                classes={{ root: classes.searchBar }}
+                placeholder="Search"
+              />
+            </Grid>
+            <Grid container item xs={12}>
+            <Grid item xs={12} md ={8} alignItems="center" direction="row">
                 <MyComponent/>
             </Grid>
+              <Grid item xs={12} md={4}>
+                <HomePageStarredEntities title="Favorite Entities"/>
+              </Grid>
+            </Grid>
             <Grid container item xs={12} alignItems="center" direction="row">
-            <InfoCard title="New components">
+            <InfoCard title="Newly registered entities">
             <EntityListProvider>
                 <CatalogFilterLayout>
                     <CatalogFilterLayout.Filters>
                     <EntityKindPicker initialFilter="component" hidden />
                     <EntityTypePicker />
-                    <EntitySecurityTierPicker />
+                    <EntitySecurityTierPicker initialFilter="7"/>
                     <EntityTagPicker />
                 </CatalogFilterLayout.Filters>
                 <CatalogFilterLayout.Content>
@@ -102,44 +109,6 @@ export const HomePage = (props: DefaultCatalogPageProps) => {
                 </CatalogFilterLayout>
             </EntityListProvider>
             </InfoCard>
-            </Grid>
-            <Grid container item xs={12} alignItems="center" direction="row">
-                <Trainings/>
-            </Grid>
-            <Grid container item xs={12} alignItems="center" direction="row">
-              <HomePageSearchBar
-                classes={{ root: classes.searchBar }}
-                placeholder="Search"
-              />
-            </Grid>
-            <Grid container item xs={12}>
-              <Grid item xs={12} md={6}>
-                <HomePageStarredEntities title="Favorite Entities"/>
-              </Grid>
-              <Grid item xs={6} md={6}>
-                <HomePageToolkit
-                  tools={Array(8).fill({
-                    url: '#',
-                    label: 'Trainings',
-                    icon: <TemplateBackstageLogoIcon />,
-                  })}
-                />
-              </Grid>
-              <Grid item xs={12} md={6} >
-                <NotDenseTable/>
-                </Grid>
-              <Grid item xs={12} md={6} >
-                <Trends/>
-                </Grid>
-              <Grid item xs={12} md={6} >
-                <InfoCard title="Unread Jenkins Errors">
-                  {/* placeholder for content */}
-                  < ExampleLogViewer/> 
-                  <div style={{ height: 870 }} />
-                </InfoCard>
-              </Grid>
-              <Grid item xs={12} md={6}>
-              </Grid>
             </Grid>
           </Grid>
         </Content>

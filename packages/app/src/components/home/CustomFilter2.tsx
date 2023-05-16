@@ -1,6 +1,6 @@
 import { DefaultEntityFilters } from '@backstage/plugin-catalog-react';
 import { EntitySecurityTierFilter } from './CustomFilterClass';
 
-export type CustomFilters = DefaultEntityFilters & {
+export const CustomFilters = DefaultEntityFilters & {
   securityTiers?: EntitySecurityTierFilter;
 };
