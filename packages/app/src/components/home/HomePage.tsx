@@ -1,10 +1,8 @@
 
 
 import {
- HomePageToolkit,
  HomePageCompanyLogo,
  HomePageStarredEntities,
- TemplateBackstageLogoIcon
 }
  from '@backstage/plugin-home';
 import { Content, Page, InfoCard } from '@backstage/core-components';
@@ -100,7 +98,7 @@ export const HomePage = (props: DefaultCatalogPageProps) => {
                     <CatalogFilterLayout.Filters>
                     <EntityKindPicker initialFilter="component" hidden />
                     <EntityTypePicker />
-                    <EntitySecurityTierPicker initialFilter="7"/>
+                    <EntitySecurityTierPicker/>
                     <EntityTagPicker />
                 </CatalogFilterLayout.Filters>
                 <CatalogFilterLayout.Content>

@@ -59,7 +59,6 @@ import { ReportIssue } from '@backstage/plugin-techdocs-module-addons-contrib';
 import { EntityKubernetesContent } from '@backstage/plugin-kubernetes';
 import {
   EntityJenkinsContent,
-  EntityLatestJenkinsRunCard,
   isJenkinsAvailable,
 } from '@backstage/plugin-jenkins';
 
@@ -71,15 +70,37 @@ const techdocsContent = (
   </EntityTechdocsContent>
 );
 
+const jenkinsContent = (
+  // This is an example of how you can implement your company's logic in entity page.
+  // You can for example enforce that all components of type 'service' should use GitHubActions
+  <EntitySwitch>
+    <EntitySwitch.Case if={isJenkinsAvailable}>
+          <EntityJenkinsContent />
+    </EntitySwitch.Case>
+    <EntitySwitch.Case>
+      <EmptyState
+        title="No Jenkins available for this entity"
+        missing="info"
+        description="You need to add an annotation to your component if you want to enable CI/CD for it. You can read more about annotations in Backstage by clicking the button below."
+        action={
+          <Button
+            variant="contained"
+            href="https://backstage.io/docs/features/software-catalog/well-known-annotations"
+          >
+            Read more
+          </Button>
+        }
+      />
+    </EntitySwitch.Case>
+  </EntitySwitch>
+);
+
 const cicdContent = (
   // This is an example of how you can implement your company's logic in entity page.
   // You can for example enforce that all components of type 'service' should use GitHubActions
   <EntitySwitch>
     <EntitySwitch.Case if={isGithubActionsAvailable}>
       <EntityGithubActionsContent />
-    </EntitySwitch.Case>
-    <EntitySwitch.Case if={isJenkinsAvailable}>
-          <EntityJenkinsContent />
     </EntitySwitch.Case>
     <EntitySwitch.Case>
       <EmptyState
@@ -128,13 +149,6 @@ const overviewContent = (
     <Grid item md={6} xs={12}>
       <EntityCatalogGraphCard variant="gridItem" height={400} />
     </Grid>
-
-          <Grid item sm={6}>
-            <EntityLatestJenkinsRunCard
-              branch="main,master"
-              variant="gridItem"
-            />
-          </Grid>
     <Grid item md={4} xs={12}>
       <EntityLinksCard />
     </Grid>
@@ -150,10 +164,13 @@ const serviceEntityPage = (
       {overviewContent}
     </EntityLayout.Route>
 
-    <EntityLayout.Route path="/ci-cd" title="CI/CD">
+    <EntityLayout.Route path="/ci-cd" title="CI/CD" if={isGithubActionsAvailable}>
       {cicdContent}
     </EntityLayout.Route>
-
+    <EntityLayout.Route path="/jenkins" title="Jenkins">
+      {jenkinsContent}
+    </EntityLayout.Route>
+    
     <EntityLayout.Route path="/api" title="API">
       <Grid container spacing={3} alignItems="stretch">
         <Grid item md={6}>

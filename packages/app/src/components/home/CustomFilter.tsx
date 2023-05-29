@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import { useEffect } from 'react';
 import { useEntityList } from '@backstage/plugin-catalog-react';
 
 import { EntitySecurityTierFilter } from './CustomFilterClass'; 
@@ -30,7 +30,5 @@ export const EntitySecurityTierPicker = () => {
       onChange('7');
   }, []);
 
-
-  const tierOptions = ['1', '2', '3'];
   return null
 };
